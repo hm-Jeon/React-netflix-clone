@@ -2,7 +2,13 @@ import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
 import { IGetMoviesResult } from "../api";
 import Box from "./Box";
-import { Button, Row, Wrapper } from "./styled/Slider.styled";
+import {
+  BackButton,
+  NextButton,
+  Row,
+  SliderTitle,
+  Wrapper,
+} from "./styled/Slider.styled";
 
 interface ISliderProps {
   data: IGetMoviesResult;
@@ -68,25 +74,26 @@ function Slider({ data, sliderName }: ISliderProps) {
 
   return (
     <Wrapper key={sliderName}>
-      {index !== 0 && (
-        <Button key={sliderName + "back"} onClick={decreaseIndex}>
-          <i className="fa-solid fa-angle-left"></i>
-        </Button>
-      )}
-      {index !== maxIndex && (
-        <Button
-          key={sliderName + "next"}
-          style={{ right: "0px" }}
-          onClick={increaseIndex}
-        >
-          <i className="fa-solid fa-angle-right"></i>
-        </Button>
-      )}
+      <SliderTitle>{sliderName}</SliderTitle>
       <AnimatePresence
         custom={isBack}
         initial={false}
         onExitComplete={toggleIsLeaving}
       >
+        {index !== 0 && (
+          <BackButton key={sliderName + "back"} onClick={decreaseIndex}>
+            <i className="fa-solid fa-angle-left"></i>
+          </BackButton>
+        )}
+        {index !== maxIndex && (
+          <NextButton
+            key={sliderName + "next"}
+            style={{ right: "0px" }}
+            onClick={increaseIndex}
+          >
+            <i className="fa-solid fa-angle-right"></i>
+          </NextButton>
+        )}
         <Row
           key={sliderName + index}
           variants={rowVariants}

@@ -1,6 +1,7 @@
 import {
   getNowPlayingMovies,
   getPopularMovies,
+  getTopRatedMovies,
   IGetMoviesResult,
 } from "../api";
 import { useQuery } from "react-query";
@@ -17,7 +18,7 @@ import {
   Title,
   Wrapper,
 } from "./Home.styled";
-import SliderComponent from "../Components/Slider";
+import Slider from "../Components/Slider";
 import { AnimatePresence, Variants } from "framer-motion";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -59,37 +60,48 @@ const bigMovieVariants: Variants = {
   },
 };
 
+enum layout {
+  nowPlaying = "now Playing",
+  popular = "popular",
+  topRated = "top Rated",
+}
+
 function Home() {
   const { isLoading: nowPlayingLoading, data: nowPlayingData } =
-    useQuery<IGetMoviesResult>(["movies", "nowPlaying"], getNowPlayingMovies);
+    useQuery<IGetMoviesResult>(
+      ["movies", layout.nowPlaying],
+      getNowPlayingMovies
+    );
 
   const { isLoading: popularLoading, data: popularData } =
-    useQuery<IGetMoviesResult>(["movies", "popular"], getPopularMovies);
+    useQuery<IGetMoviesResult>(["movies", layout.popular], getPopularMovies);
 
-  const isLoading = nowPlayingLoading || popularLoading;
+  const { isLoading: upTopRatedLoading, data: topRatedData } =
+    useQuery<IGetMoviesResult>(["movies", layout.topRated], getTopRatedMovies);
 
-  // const { scrollY } = useViewportScroll();
+  const isLoading = nowPlayingLoading || popularLoading || upTopRatedLoading;
+
+  const layoutIdPrefix = useRecoilValue(layoutState);
   const navigate = useNavigate();
   const bigMovieMatch = useMatch("/movies/:movieId");
+
   // Array.find() 함수를 이용해서 배열 중 맞는 조건의 요소를 찾을 수 있다.
   const clickedMovie =
-    bigMovieMatch?.params.movieId &&
-    nowPlayingData?.results.find(
-      movie => String(movie.id) === bigMovieMatch.params.movieId
-    )
+    bigMovieMatch?.params.movieId && layoutIdPrefix === layout.nowPlaying
       ? nowPlayingData?.results.find(
           movie => String(movie.id) === bigMovieMatch.params.movieId
         )
-      : popularData?.results.find(
+      : layoutIdPrefix === layout.popular
+      ? popularData?.results.find(
+          movie => String(movie.id) === bigMovieMatch?.params.movieId
+        )
+      : topRatedData?.results.find(
           movie => String(movie.id) === bigMovieMatch?.params.movieId
         );
 
   const onOverlayClick = () => {
     navigate("/");
   };
-
-  const layoutIdPrefix = useRecoilValue(layoutState);
-  console.log(layoutIdPrefix);
 
   return (
     <Wrapper>
@@ -105,8 +117,9 @@ function Home() {
             <Title>{nowPlayingData?.results[0].title}</Title>
             <Overview>{nowPlayingData?.results[0].overview}</Overview>
           </Banner>
-          <SliderComponent data={nowPlayingData!} sliderName="nowPlaying" />
-          <SliderComponent data={popularData!} sliderName="popular" />
+          <Slider data={nowPlayingData!} sliderName={layout.nowPlaying} />
+          <Slider data={popularData!} sliderName={layout.popular} />
+          <Slider data={topRatedData!} sliderName={layout.topRated} />
           <AnimatePresence>
             {bigMovieMatch ? (
               <>

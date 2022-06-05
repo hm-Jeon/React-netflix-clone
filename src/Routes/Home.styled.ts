@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 
 export const Wrapper = styled.div`
+  /* position: relative; */
   min-height: 100vh;
   background-color: black;
   /* overflow-x: hidden; */
@@ -36,23 +37,23 @@ export const Banner = styled.div<IBannerProps>`
 
 export const Title = styled.h2`
   position: relative;
-  /* top: -50px; */
+  top: 40px;
   width: 70%;
   min-width: 400px;
   max-width: 1000px;
-  margin-bottom: 5px;
-  font-size: 68px;
+  margin-bottom: 10px;
+  font-size: 60px;
   font-weight: 600;
-  line-height: 1em;
+  line-height: 1.2em;
 `;
 
 export const Overview = styled.p`
   position: relative;
-  /* top: -50px; */
+  top: 40px;
   width: 50%;
   min-width: 400px;
   max-width: 800px;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 export const Overlay = styled(motion.div)`
