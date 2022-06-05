@@ -35,3 +35,11 @@ export async function getPopularMovies() {
     )
   ).json();
 }
+
+export async function getTopRatedMovies() {
+  return (
+    await fetch(
+      `${BASE_PATH}/movie/top_rated?api_key=${API_KEY}&language=ko&page=1&region=kr`
+    )
+  ).json();
+}
