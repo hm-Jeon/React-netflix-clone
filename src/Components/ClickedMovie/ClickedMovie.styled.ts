@@ -52,7 +52,7 @@ export const Cover = styled.div<CoverProps>`
 export const BackBtn = styled.button`
   position: absolute;
   top: 15px;
-  right: 15px;
+  left: 15px;
   display: flex;
   justify-content: center;
   align-items: center;

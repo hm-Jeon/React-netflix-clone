@@ -79,7 +79,7 @@ function ClickedMovie({ bigMovieMatch, clickedMovie }: IClickedMovieProps) {
               bgImg={makeImagePath(clickedMovie.backdrop_path, "original")}
             >
               <BackBtn onClick={onBackBtnClick}>
-                <i className="fa-solid fa-x"></i>
+                <i className="fa-solid fa-arrow-left"></i>
               </BackBtn>
               <Title>{clickedMovie.title}</Title>
             </Cover>
