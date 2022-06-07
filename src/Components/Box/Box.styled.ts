@@ -36,6 +36,7 @@ export const Info = styled(motion.div)`
   user-select: none;
 
   h4 {
+    font-size: 14px;
     text-align: center;
   }
 `;

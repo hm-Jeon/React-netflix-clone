@@ -3,12 +3,13 @@ import {
   getPopularMovies,
   getTopRatedMovies,
   IGetMoviesResult,
-} from "../api";
+} from "../../api";
 import { useQuery } from "react-query";
-import { makeImagePath } from "../utils";
+import { makeImagePath } from "../../utils";
 import {
   Banner,
   BigCover,
+  BigInfo,
   BigMovie,
   BigOverview,
   BigTitle,
@@ -18,11 +19,11 @@ import {
   Title,
   Wrapper,
 } from "./Home.styled";
-import Slider from "../Components/Slider";
+import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence, Variants } from "framer-motion";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { layoutState } from "../atom";
+import { layoutState } from "../../atom";
 
 const overlayVariants: Variants = {
   initial: {
@@ -103,6 +104,8 @@ function Home() {
     navigate("/");
   };
 
+  console.log(bigMovieMatch, clickedMovie);
+
   return (
     <Wrapper>
       {isLoading ? (
@@ -141,7 +144,9 @@ function Home() {
                       >
                         <BigTitle>{clickedMovie.title}</BigTitle>
                       </BigCover>
-                      <BigOverview>{clickedMovie.overview}</BigOverview>
+                      <BigInfo>
+                        <BigOverview>{clickedMovie.overview}</BigOverview>
+                      </BigInfo>
                     </>
                   )}
                 </BigMovie>

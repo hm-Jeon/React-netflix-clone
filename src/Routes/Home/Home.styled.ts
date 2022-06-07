@@ -37,23 +37,24 @@ export const Banner = styled.div<IBannerProps>`
 
 export const Title = styled.h2`
   position: relative;
-  top: 40px;
+  top: 80px;
   width: 70%;
   min-width: 400px;
   max-width: 1000px;
   margin-bottom: 10px;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 600;
   line-height: 1.2em;
 `;
 
 export const Overview = styled.p`
   position: relative;
-  top: 40px;
+  top: 80px;
   width: 50%;
   min-width: 400px;
   max-width: 800px;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 1.4;
 `;
 
 export const Overlay = styled(motion.div)`
@@ -74,6 +75,8 @@ export const BigMovie = styled(motion.div)`
   bottom: 0;
   left: 0;
   right: 0;
+  display: flex;
+  flex-direction: column;
   margin: auto auto;
   color: ${props => props.theme.white.lighter};
   background-color: ${props => props.theme.black.darker};
@@ -87,6 +90,7 @@ interface BigCoverProps {
 }
 
 export const BigCover = styled.div<BigCoverProps>`
+  flex-shrink: 0;
   position: relative;
   width: 100%;
   height: 60%;
@@ -104,6 +108,15 @@ export const BigTitle = styled.h2`
   text-align: center;
   font-size: 36px;
   font-weight: 600;
+`;
+
+export const BigInfo = styled.div`
+  position: relative;
+  height: 100%;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const BigOverview = styled.p`

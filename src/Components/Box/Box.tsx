@@ -1,10 +1,10 @@
 import { Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { IMovie } from "../api";
-import { layoutState } from "../atom";
-import { makeImagePath } from "../utils";
-import { Info, Poster, Wrapper } from "./styled/Box.styled";
+import { IMovie } from "../../api";
+import { layoutState } from "../../atom";
+import { makeImagePath } from "../../utils";
+import { Info, Poster, Wrapper } from "./Box.styled";
 
 const boxVariants: Variants = {
   normal: {
@@ -32,15 +32,13 @@ const infoVariants: Variants = {
   },
 };
 
-function Box({
-  movie,
-  index,
-  sliderName,
-}: {
+interface IBoxProps {
   movie: IMovie;
   index: number;
   sliderName: string;
-}) {
+}
+
+function Box({ movie, index, sliderName }: IBoxProps) {
   const navigate = useNavigate();
 
   const onBoxClicked = (movieId: number) => {

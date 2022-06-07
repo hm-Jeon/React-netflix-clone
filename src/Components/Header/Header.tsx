@@ -2,7 +2,7 @@ import { Variants, useViewportScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { theme } from "../theme";
+import { theme } from "../../theme";
 import {
   Circle,
   Col,
@@ -14,7 +14,7 @@ import {
   Path,
   Search,
   Svg,
-} from "./styled/Header.styled";
+} from "./Header.styled";
 
 const logoVariant: Variants = {
   initial: {

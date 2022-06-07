@@ -1,14 +1,14 @@
 import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
-import { IGetMoviesResult } from "../api";
-import Box from "./Box";
+import { IGetMoviesResult } from "../../api";
+import Box from "../Box/Box";
 import {
   BackButton,
   NextButton,
   Row,
   SliderTitle,
   Wrapper,
-} from "./styled/Slider.styled";
+} from "./Slider.styled";
 
 interface ISliderProps {
   data: IGetMoviesResult;
@@ -73,53 +73,51 @@ function Slider({ data, sliderName }: ISliderProps) {
   };
 
   return (
-    <Wrapper key={sliderName}>
+    <>
       <SliderTitle>{sliderName}</SliderTitle>
-      <AnimatePresence
-        custom={isBack}
-        initial={false}
-        onExitComplete={toggleIsLeaving}
-      >
-        {index !== 0 && (
-          <BackButton key={sliderName + "back"} onClick={decreaseIndex}>
-            <i className="fa-solid fa-angle-left"></i>
-          </BackButton>
-        )}
-        {index !== maxIndex && (
-          <NextButton
-            key={sliderName + "next"}
-            style={{ right: "0px" }}
-            onClick={increaseIndex}
-          >
-            <i className="fa-solid fa-angle-right"></i>
-          </NextButton>
-        )}
-        <Row
-          key={sliderName + index}
-          variants={rowVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
+      <Wrapper key={sliderName}>
+        <AnimatePresence
           custom={isBack}
+          initial={false}
+          onExitComplete={toggleIsLeaving}
         >
-          {/* 
+          {index !== 0 && (
+            <BackButton key={sliderName + "back"} onClick={decreaseIndex}>
+              <i className="fa-solid fa-angle-left"></i>
+            </BackButton>
+          )}
+          {index !== maxIndex && (
+            <NextButton key={sliderName + "next"} onClick={increaseIndex}>
+              <i className="fa-solid fa-angle-right"></i>
+            </NextButton>
+          )}
+          <Row
+            key={sliderName + index}
+            variants={rowVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            custom={isBack}
+          >
+            {/* 
                   Banner에 사용한 data.results[0]은 제거 (slice(1)) 
                   offset을 활용하여 paging 처리 (offset * index부터 offset * index + offset까지) 
                 */}
-          {data?.results
-            .slice(1)
-            .slice(offset * index, offset * index + offset)
-            .map((movie, i) => (
-              <Box
-                key={sliderName + movie.id}
-                movie={movie}
-                index={i}
-                sliderName={sliderName}
-              />
-            ))}
-        </Row>
-      </AnimatePresence>
-    </Wrapper>
+            {data?.results
+              .slice(1)
+              .slice(offset * index, offset * index + offset)
+              .map((movie, i) => (
+                <Box
+                  key={sliderName + movie.id}
+                  movie={movie}
+                  index={i}
+                  sliderName={sliderName}
+                />
+              ))}
+          </Row>
+        </AnimatePresence>
+      </Wrapper>
+    </>
   );
 }
 
