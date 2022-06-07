@@ -6,6 +6,7 @@ import { createGlobalStyle } from "styled-components";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import App from "./App";
+import { HelmetProvider } from "react-helmet-async";
 
 // styled-components의 createGlobalStyle을 사용해 전역에 적용될 스타일을 지정할 수 있다.
 const GlobalStyle = createGlobalStyle`
@@ -80,12 +81,14 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <RecoilRoot>
-    <QueryClientProvider client={client}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-        <ReactQueryDevtools />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+          <ReactQueryDevtools />
+        </ThemeProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   </RecoilRoot>
 );

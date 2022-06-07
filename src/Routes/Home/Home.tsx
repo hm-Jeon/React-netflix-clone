@@ -11,6 +11,7 @@ import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import ClickedMovie from "../../Components/ClickedMovie/ClickedMovie";
+import { Helmet } from "react-helmet-async";
 
 enum layout {
   nowPlaying = "now Playing",
@@ -33,7 +34,7 @@ function Home() {
 
   const isLoading = nowPlayingLoading || popularLoading || upTopRatedLoading;
 
-  const bigMovieMatch = useMatch("/movies/:sliderName/:movieId");
+  const bigMovieMatch = useMatch("/movie/:sliderName/:movieId");
 
   // Array.find() 함수를 이용해서 배열 중 맞는 조건의 요소를 찾을 수 있다.
   const clickedMovie =
@@ -50,36 +51,43 @@ function Home() {
           movie => String(movie.id) === bigMovieMatch?.params.movieId
         );
 
-  console.log(bigMovieMatch, clickedMovie);
-
   return (
-    <Wrapper>
-      {isLoading ? (
-        <Loader>Loading</Loader>
-      ) : (
-        <>
-          <Banner
-            bgImg={makeImagePath(
-              nowPlayingData?.results[0].backdrop_path || ""
-            )}
-          >
-            <Title>{nowPlayingData?.results[0].title}</Title>
-            <Overview>{nowPlayingData?.results[0].overview}</Overview>
-          </Banner>
-          <Slider data={nowPlayingData!} sliderName={layout.nowPlaying} />
-          <Slider data={popularData!} sliderName={layout.popular} />
-          <Slider data={topRatedData!} sliderName={layout.topRated} />
-          <AnimatePresence>
-            {bigMovieMatch ? (
-              <ClickedMovie
-                bigMovieMatch={bigMovieMatch}
-                clickedMovie={clickedMovie!}
-              />
-            ) : null}
-          </AnimatePresence>
-        </>
-      )}
-    </Wrapper>
+    <>
+      <Helmet>
+        {clickedMovie ? (
+          <title>{clickedMovie?.title} - 넷플릭스</title>
+        ) : (
+          <title>홈 - 넷플릭스</title>
+        )}
+      </Helmet>
+      <Wrapper>
+        {isLoading ? (
+          <Loader>Loading</Loader>
+        ) : (
+          <>
+            <Banner
+              bgImg={makeImagePath(
+                nowPlayingData?.results[0].backdrop_path || ""
+              )}
+            >
+              <Title>{nowPlayingData?.results[0].title}</Title>
+              <Overview>{nowPlayingData?.results[0].overview}</Overview>
+            </Banner>
+            <Slider data={nowPlayingData!} sliderName={layout.nowPlaying} />
+            <Slider data={popularData!} sliderName={layout.popular} />
+            <Slider data={topRatedData!} sliderName={layout.topRated} />
+            <AnimatePresence>
+              {bigMovieMatch ? (
+                <ClickedMovie
+                  bigMovieMatch={bigMovieMatch}
+                  clickedMovie={clickedMovie!}
+                />
+              ) : null}
+            </AnimatePresence>
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 }
 
