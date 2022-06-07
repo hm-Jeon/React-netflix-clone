@@ -9,6 +9,7 @@ import {
   Overview,
   Title,
   Overlay,
+  BackBtn,
 } from "./ClickedMovie.styled";
 
 const overlayVariants: Variants = {
@@ -29,12 +30,13 @@ const overlayVariants: Variants = {
   },
 };
 
-const bigMovieVariants: Variants = {
+const clickedMovieVariants: Variants = {
   hidden: {
     opacity: 0,
   },
   visible: {
     opacity: 1,
+    boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.2)",
     transition: {
       duration: 0.5,
     },
@@ -55,15 +57,15 @@ interface IClickedMovieProps {
 function ClickedMovie({ bigMovieMatch, clickedMovie }: IClickedMovieProps) {
   const navigate = useNavigate();
 
-  const onOverlayClick = () => {
+  const onBackBtnClick = () => {
     navigate("/");
   };
 
   return (
     <>
-      <Overlay onClick={onOverlayClick} {...overlayVariants} />
+      <Overlay {...overlayVariants} />
       <ClickedMovieBox
-        variants={bigMovieVariants}
+        variants={clickedMovieVariants}
         initial="hidden"
         animate="visible"
         exit="exit"
@@ -76,6 +78,9 @@ function ClickedMovie({ bigMovieMatch, clickedMovie }: IClickedMovieProps) {
             <Cover
               bgImg={makeImagePath(clickedMovie.backdrop_path, "original")}
             >
+              <BackBtn onClick={onBackBtnClick}>
+                <i className="fa-solid fa-x"></i>
+              </BackBtn>
               <Title>{clickedMovie.title}</Title>
             </Cover>
             <Info>

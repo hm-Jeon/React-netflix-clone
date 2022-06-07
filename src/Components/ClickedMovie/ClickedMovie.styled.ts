@@ -29,19 +29,43 @@ export const ClickedMovieBox = styled(motion.div)`
   z-index: 1000;
 `;
 
-interface BigCoverProps {
+interface CoverProps {
   bgImg: string;
 }
 
-export const Cover = styled.div<BigCoverProps>`
+export const Cover = styled.div<CoverProps>`
   flex-shrink: 0;
   position: relative;
   width: 100%;
   height: 60%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.9)),
+  background-color: ${props => props.theme.black.darker};
+  background-image: linear-gradient(
+      to bottom,
+      ${props => props.theme.black.darker}00,
+      ${props => props.theme.black.darker}ff
+    ),
     url(${props => props.bgImg});
   background-position: center center;
   background-size: cover;
+`;
+
+export const BackBtn = styled.button`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 30px;
+  border: none;
+  border-radius: 50%;
+  background-color: ${props => props.theme.black.darker};
+  cursor: pointer;
+
+  i {
+    color: ${props => props.theme.white.lighter};
+  }
 `;
 
 export const Title = styled.h2`
