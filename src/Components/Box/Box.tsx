@@ -42,7 +42,7 @@ function Box({ movie, index, sliderName }: IBoxProps) {
   const navigate = useNavigate();
 
   const onBoxClicked = (sliderName: string, movieId: number) => {
-    navigate(`/movies/${sliderName}/${movieId}`);
+    navigate(`/movie/${sliderName}/${movieId}`);
   };
 
   return (

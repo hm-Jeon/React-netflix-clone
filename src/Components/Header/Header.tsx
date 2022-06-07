@@ -71,6 +71,7 @@ interface IForm {
 
 function Header() {
   const homeMatch = useMatch("/");
+  const clickedMovieMatch = useMatch("/movie/:sliderName/:movieId");
   const tvMatch = useMatch("/tv");
 
   const [searchOpen, setSearchOpen] = useState(false);
@@ -111,7 +112,7 @@ function Header() {
         <Items>
           <Item>
             <Link to="/">Home</Link>
-            {homeMatch && <Circle />}
+            {(homeMatch || clickedMovieMatch) && <Circle />}
           </Item>
           <Item>
             <Link to="tv">Tv Shows</Link>
