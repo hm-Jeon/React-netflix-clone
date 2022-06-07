@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 
 export const Wrapper = styled(motion.div)`
-  height: 200px;
+  height: 150px;
+  /* height: 100%; */
   background-color: transparent;
   border-radius: 5px;
   cursor: pointer;

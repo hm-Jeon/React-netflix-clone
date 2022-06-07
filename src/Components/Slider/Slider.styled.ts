@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export const Wrapper = styled.div`
   position: relative;
-  height: 200px;
+  height: 150px;
   margin: 0 0 50px;
 
   &:hover {
@@ -22,6 +22,7 @@ export const SliderTitle = styled.h1`
 
 export const Row = styled(motion.div)`
   position: absolute;
+  height: 100%;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -32,8 +33,8 @@ export const Row = styled(motion.div)`
 const Button = styled(motion.button)`
   position: absolute;
   height: 100%;
+  width: 50px;
   border: none;
-  padding: 0 20px;
   color: white;
   background-color: transparent;
   font-size: 20px;
@@ -41,8 +42,7 @@ const Button = styled(motion.button)`
   cursor: pointer;
   opacity: 0;
   backdrop-filter: blur(0.5px);
-  transition: font-size 0.3s ease-in-out, opacity 0.3s ease-in-out,
-    background-image 0.3s ease-in-out;
+  transition: font-size 0.1s linear, opacity 0.3s ease-in-out;
 
   &:hover {
     font-size: 30px;
