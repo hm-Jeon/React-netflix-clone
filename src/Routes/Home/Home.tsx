@@ -5,13 +5,13 @@ import {
   IGetMoviesResult,
 } from "../../api";
 import { useQuery } from "react-query";
-import { makeImagePath } from "../../utils";
-import { Banner, Loader, Overview, Title, Wrapper } from "./Home.styled";
+import { Loader, Wrapper } from "./Home.styled";
 import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import ClickedMovie from "../../Components/ClickedMovie/ClickedMovie";
 import { Helmet } from "react-helmet-async";
+import Banner from "../../Components/Banner/Banner";
 
 enum layout {
   nowPlaying = "now Playing",
@@ -65,14 +65,7 @@ function Home() {
           <Loader>Loading</Loader>
         ) : (
           <>
-            <Banner
-              bgImg={makeImagePath(
-                nowPlayingData?.results[0].backdrop_path || ""
-              )}
-            >
-              <Title>{nowPlayingData?.results[0].title}</Title>
-              <Overview>{nowPlayingData?.results[0].overview}</Overview>
-            </Banner>
+            <Banner bannerMovie={nowPlayingData?.results[0]!} />
             <Slider data={nowPlayingData!} sliderName={layout.nowPlaying} />
             <Slider data={popularData!} sliderName={layout.popular} />
             <Slider data={topRatedData!} sliderName={layout.topRated} />
