@@ -22,8 +22,6 @@ import {
 import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence, Variants } from "framer-motion";
 import { useMatch, useNavigate } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import { layoutState } from "../../atom";
 
 const overlayVariants: Variants = {
   initial: {
@@ -82,17 +80,18 @@ function Home() {
 
   const isLoading = nowPlayingLoading || popularLoading || upTopRatedLoading;
 
-  const layoutIdPrefix = useRecoilValue(layoutState);
   const navigate = useNavigate();
-  const bigMovieMatch = useMatch("/movies/:movieId");
+
+  const bigMovieMatch = useMatch("/movies/:sliderName/:movieId");
 
   // Array.find() 함수를 이용해서 배열 중 맞는 조건의 요소를 찾을 수 있다.
   const clickedMovie =
-    bigMovieMatch?.params.movieId && layoutIdPrefix === layout.nowPlaying
+    bigMovieMatch?.params.movieId &&
+    bigMovieMatch.params.sliderName === layout.nowPlaying
       ? nowPlayingData?.results.find(
           movie => String(movie.id) === bigMovieMatch.params.movieId
         )
-      : layoutIdPrefix === layout.popular
+      : bigMovieMatch?.params.sliderName === layout.popular
       ? popularData?.results.find(
           movie => String(movie.id) === bigMovieMatch?.params.movieId
         )
@@ -132,7 +131,10 @@ function Home() {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
-                  layoutId={layoutIdPrefix + bigMovieMatch.params.movieId}
+                  layoutId={
+                    bigMovieMatch.params.sliderName! +
+                    bigMovieMatch.params.movieId!
+                  }
                 >
                   {clickedMovie && (
                     <>

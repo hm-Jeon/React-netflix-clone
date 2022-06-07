@@ -1,8 +1,6 @@
 import { Variants } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import { IMovie } from "../../api";
-import { layoutState } from "../../atom";
 import { makeImagePath } from "../../utils";
 import { Info, Poster, Wrapper } from "./Box.styled";
 
@@ -41,11 +39,9 @@ interface IBoxProps {
 function Box({ movie, index, sliderName }: IBoxProps) {
   const navigate = useNavigate();
 
-  const onBoxClicked = (movieId: number) => {
-    navigate(`/movies/${movieId}`);
+  const onBoxClicked = (sliderName: string, movieId: number) => {
+    navigate(`/movies/${sliderName}/${movieId}`);
   };
-
-  const setLayoutPrefix = useSetRecoilState(layoutState);
 
   return (
     <Wrapper
@@ -55,8 +51,7 @@ function Box({ movie, index, sliderName }: IBoxProps) {
       whileHover="hover"
       transition={{ type: "tween" }}
       onClick={() => {
-        onBoxClicked(movie.id);
-        setLayoutPrefix(sliderName);
+        onBoxClicked(sliderName, movie.id);
       }}
       layoutId={sliderName + String(movie.id)}
       style={{ originX: index === 0 ? 0 : index === 5 ? 1 : 0.5 }}
