@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const Wrapper = styled.div`
   /* position: relative; */
   min-height: 100vh;
-  background-color: black;
+  background-color: ${props => props.theme.black.veryDark};
   /* overflow-x: hidden; */
   /* overflow-y: visible; */
   /* overflow-x: hidden; */
@@ -28,7 +28,10 @@ export const Banner = styled.div<IBannerProps>`
   height: 80vh;
   padding: 0 60px;
   /* background-image 속성값으로 여러 요소를 지정할 수 있다. 가장 처음 지정한 요소가 가장 위에 배치된다. */
-  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+  background-image: linear-gradient(
+      ${props => props.theme.black.veryDark}00,
+      ${props => props.theme.black.veryDark}ff
+    ),
     url(${props => props.bgImg});
   background-size: cover;
   /* background-size: cover로 지정했을 때 background-image의 어느 부분을 기준으로 cover할지 지정함 */
@@ -70,7 +73,7 @@ export const BigMovie = styled(motion.div)`
   position: fixed;
   width: 60vw;
   max-width: 800px;
-  height: 80vh;
+  height: 90vh;
   top: 0;
   bottom: 0;
   left: 0;

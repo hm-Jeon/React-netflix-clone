@@ -10,8 +10,9 @@ const boxVariants: Variants = {
   },
   hover: {
     scale: 1.3,
-    y: -60,
+    y: -50,
     zIndex: 2,
+    boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.2)",
     transition: {
       type: "tween",
       delay: 0.5,
@@ -23,6 +24,7 @@ const boxVariants: Variants = {
 const infoVariants: Variants = {
   hover: {
     opacity: 1,
+    boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.2)",
     transition: {
       delay: 0.5,
       duration: 0.2,

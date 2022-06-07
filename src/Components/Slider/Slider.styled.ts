@@ -52,8 +52,8 @@ const Button = styled(motion.button)`
 export const BackButton = styled(Button)`
   background-image: linear-gradient(
     to left,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 1)
+    ${props => props.theme.black.veryDark}00,
+    ${props => props.theme.black.veryDark}ff
   );
 `;
 
@@ -61,7 +61,7 @@ export const NextButton = styled(Button)`
   right: 0;
   background-image: linear-gradient(
     to right,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 1)
+    ${props => props.theme.black.veryDark}00,
+    ${props => props.theme.black.veryDark}ff
   );
 `;

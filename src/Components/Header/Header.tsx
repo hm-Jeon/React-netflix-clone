@@ -55,9 +55,13 @@ const svgVariant: Variants = {
 };
 
 const navVariant: Variants = {
-  initial: { backgroundColor: "rgba(0, 0, 0, 0)" },
+  initial: (scroll: number) => ({
+    backgroundColor:
+      scroll > 80 ? `${theme.black.veryDark}ff` : "rgba(0, 0, 0, 0)",
+  }),
   animate: (scroll: number) => ({
-    backgroundColor: scroll > 80 ? "rgba(0, 0, 0, 1)" : "rgba(0, 0, 0, 0)",
+    backgroundColor:
+      scroll > 80 ? `${theme.black.veryDark}ff` : "rgba(0, 0, 0, 0)",
   }),
 };
 

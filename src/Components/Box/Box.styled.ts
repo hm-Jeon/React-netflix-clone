@@ -19,6 +19,7 @@ export const Wrapper = styled(motion.div)`
 export const Poster = styled(motion.img)`
   width: 100%;
   height: 100%;
+  /* height: 100%; */
   border-radius: 5px;
   /* img나 video의 size 설정할 수 있음 (background-size와 유사) */
   object-fit: cover;
@@ -28,12 +29,12 @@ export const Poster = styled(motion.img)`
 
 export const Info = styled(motion.div)`
   position: relative;
-  top: -4px;
   width: 100%;
   padding: 10px;
-  background-color: ${props => props.theme.black.lighter};
+  background-color: ${props => props.theme.black.darker};
   border-radius: 0 0 5px 5px;
   opacity: 0;
+  top: -5px;
   user-select: none;
 
   h4 {
