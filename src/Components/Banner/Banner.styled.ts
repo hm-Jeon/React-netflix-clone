@@ -23,22 +23,28 @@ export const BannerBox = styled.div<IBannerProps>`
 
 export const Title = styled.h2`
   position: relative;
-  top: 80px;
+  /* top: 100px; */
   width: 70%;
-  min-width: 400px;
   max-width: 1000px;
   margin-bottom: 10px;
-  font-size: 50px;
+  font-size: 80px;
   font-weight: 600;
   line-height: 1.2em;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
 `;
 
 export const Overview = styled.p`
   position: relative;
-  top: 80px;
+  /* top: 100px; */
   width: 50%;
   min-width: 400px;
   max-width: 800px;
-  font-size: 16px;
-  line-height: 1.4;
+  font-size: 18px;
+  line-height: 1.5;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
 `;

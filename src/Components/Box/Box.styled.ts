@@ -29,16 +29,21 @@ export const Poster = styled(motion.img)`
 
 export const Info = styled(motion.div)`
   position: relative;
+  top: -5px;
   width: 100%;
   padding: 10px;
   background-color: ${props => props.theme.black.darker};
   border-radius: 0 0 5px 5px;
   opacity: 0;
-  top: -5px;
   user-select: none;
+  overflow-y: hidden;
 
   h4 {
     font-size: 14px;
     text-align: center;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
   }
 `;

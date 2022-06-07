@@ -4,7 +4,8 @@ import styled from "styled-components";
 export const Nav = styled(motion.nav)`
   position: fixed;
   top: 0;
-  width: 100%;
+  right: 0;
+  left: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

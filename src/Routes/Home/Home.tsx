@@ -5,7 +5,7 @@ import {
   IGetMoviesResult,
 } from "../../api";
 import { useQuery } from "react-query";
-import { Loader, Wrapper } from "./Home.styled";
+import { Loader, Sliders, Wrapper } from "./Home.styled";
 import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
@@ -66,9 +66,11 @@ function Home() {
         ) : (
           <>
             <Banner bannerMovie={nowPlayingData?.results[0]!} />
-            <Slider data={nowPlayingData!} sliderName={layout.nowPlaying} />
-            <Slider data={popularData!} sliderName={layout.popular} />
-            <Slider data={topRatedData!} sliderName={layout.topRated} />
+            <Sliders>
+              <Slider data={nowPlayingData!} sliderName={layout.nowPlaying} />
+              <Slider data={popularData!} sliderName={layout.popular} />
+              <Slider data={topRatedData!} sliderName={layout.topRated} />
+            </Sliders>
             <AnimatePresence>
               {bigMovieMatch ? (
                 <ClickedMovie
