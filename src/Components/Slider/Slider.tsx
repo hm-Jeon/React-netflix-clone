@@ -18,7 +18,6 @@ interface ISliderProps {
 
 const rowVariants: Variants = {
   hidden: (isBack: boolean) => ({
-    // x: isBack ? "calc(-100% + -10px)" : "calc(100% + 10px)",
     x: isBack ? -window.innerWidth : window.innerWidth,
     opacity: 0,
   }),
@@ -31,7 +30,6 @@ const rowVariants: Variants = {
     },
   },
   exit: (isBack: boolean) => ({
-    // x: isBack ? "calc(100% + 10px)" : "calc(-100% + -10px)",
     x: isBack ? window.innerWidth : -window.innerWidth,
     opacity: 0,
     transition: {
