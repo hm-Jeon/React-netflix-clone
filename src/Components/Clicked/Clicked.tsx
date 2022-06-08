@@ -65,7 +65,7 @@ function Clicked({
   const navigate = useNavigate();
 
   const onBackBtnClick = () => {
-    navigate(-1);
+    clickedMovieMatch ? navigate("/") : navigate("/tv");
   };
 
   return (
