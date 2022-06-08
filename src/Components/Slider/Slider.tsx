@@ -65,7 +65,7 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
     if (index !== 0) {
       setIsLeaving(true);
       setIsBack(true);
-      setIndex(current => current - 1);
+      setIndex(current => (current === 0 ? current : current - 1));
     }
   };
 
