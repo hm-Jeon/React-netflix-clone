@@ -1,16 +1,21 @@
+import { useQuery } from "react-query";
+import { getOnAirTvProgram, IGetTvResult } from "../../api";
+import Banner from "../../Components/Banner/Banner";
+import { Wrapper } from "./Tv.styled";
+
 function Tv() {
-  return (
-    <div
-      style={{
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <h1>tv</h1>
-    </div>
+  const { data, isLoading } = useQuery<IGetTvResult>(
+    ["tv", "onAir"],
+    getOnAirTvProgram
+  );
+  console.log(data);
+
+  return isLoading ? (
+    <h1>Loading...</h1>
+  ) : (
+    <Wrapper>
+      <Banner bannerTv={data!.results[0]} />
+    </Wrapper>
   );
 }
 

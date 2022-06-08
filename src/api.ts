@@ -43,3 +43,30 @@ export async function getTopRatedMovies() {
     )
   ).json();
 }
+
+export interface ITv {
+  id: number;
+  name: string;
+  overview: string;
+  backdrop_path: string;
+  poster_path: string;
+}
+
+export interface IGetTvResult {
+  dates: {
+    maximum: string;
+    minimum: string;
+  };
+  page: number;
+  results: ITv[];
+  total_pages: number;
+  total_results: number;
+}
+
+export async function getOnAirTvProgram() {
+  return (
+    await fetch(
+      `${BASE_PATH}/tv/on_the_air?api_key=${API_KEY}&language=ko&page=1&region=kr`
+    )
+  ).json();
+}
