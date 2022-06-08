@@ -3,7 +3,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
 import { makeImagePath } from "../../utils";
-import { Info, Poster, Wrapper } from "./Box.styled";
+import {
+  Button,
+  ButtonGroup,
+  Buttons,
+  Info,
+  PlayButton,
+  Poster,
+  Title,
+  Wrapper,
+} from "./Box.styled";
 
 const boxVariants: Variants = {
   initial: {
@@ -28,7 +37,7 @@ const infoVariants: Variants = {
     opacity: 0,
   },
   hover: {
-    display: "block",
+    display: "flex",
     opacity: 1,
     transition: {
       delay: 0.3,
@@ -70,9 +79,6 @@ function Box({ movie, tv, index, sliderName }: IBoxProps) {
         initial="initial"
         whileHover="hover"
         transition={{ type: "tween" }}
-        onClick={() => {
-          onBoxClicked(sliderName, movie?.id || tv!.id);
-        }}
         onHoverStart={() => {
           setIsHover(true);
         }}
@@ -101,7 +107,27 @@ function Box({ movie, tv, index, sliderName }: IBoxProps) {
           variants={infoVariants}
           animate={isHover ? "hover" : "hoverEnd"}
         >
-          <h4>{movie?.title || tv!.name}</h4>
+          <Buttons>
+            <ButtonGroup>
+              <PlayButton>
+                <i className="fa-solid fa-play"></i>
+              </PlayButton>
+              <Button>
+                <i className="fa-solid fa-plus"></i>
+              </Button>
+              <Button>
+                <i className="fa-regular fa-thumbs-up"></i>
+              </Button>
+            </ButtonGroup>
+            <Button
+              onClick={() => {
+                onBoxClicked(sliderName, movie?.id || tv!.id);
+              }}
+            >
+              <i className="fa-solid fa-chevron-down"></i>
+            </Button>
+          </Buttons>
+          <Title>{movie?.title || tv!.name}</Title>
         </Info>
       </Wrapper>
     </AnimatePresence>

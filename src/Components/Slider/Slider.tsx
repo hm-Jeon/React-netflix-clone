@@ -81,7 +81,9 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
       <Wrapper key={sliderName}>
         <SliderBars>
           {[...Array(maxIndex + 1)].map((v, i) => {
-            return <SliderBar active={index === i}></SliderBar>;
+            return (
+              <SliderBar key={sliderName + i} active={index === i}></SliderBar>
+            );
           })}
         </SliderBars>
         <AnimatePresence

@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 
 export const Sliders = styled.div`
   position: relative;
-  top: -30px;
+  top: -50px;
   overflow-x: hidden;
-  padding: 30px 0;
+  padding: 30px 0 50px;
 
   &::-webkit-scrollbar {
     display: none;

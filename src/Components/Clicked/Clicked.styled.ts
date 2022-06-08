@@ -56,15 +56,20 @@ export const BackBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   border: none;
   border-radius: 50%;
   background-color: ${props => props.theme.black.darker};
   cursor: pointer;
 
+  &:hover {
+    background-color: ${props => props.theme.black.lighter};
+  }
+
   i {
     color: ${props => props.theme.white.lighter};
+    font-size: 16px;
   }
 `;
 
