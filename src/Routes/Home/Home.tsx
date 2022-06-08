@@ -13,6 +13,7 @@ import Clicked from "../../Components/Clicked/Clicked";
 import { Helmet } from "react-helmet-async";
 import Banner from "../../Components/Banner/Banner";
 import { Sliders } from "../../Components/Slider/Slider.styled";
+import { useEffect } from "react";
 
 const MOVIES_KEY = "movies";
 
@@ -55,6 +56,11 @@ function Home() {
       : clickedMovieMatch?.params.sliderName === slider.popular
       ? findMovie(popularData!)
       : findMovie(topRatedData!);
+
+  // 페이지 이동시 Top으로 scroll 이동
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { useMatch } from "react-router-dom";
@@ -51,7 +52,9 @@ function Tv() {
       ? findTv(popularData!)
       : findTv(topRatedData!);
 
-  console.log(clickedTv);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
