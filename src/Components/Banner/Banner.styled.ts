@@ -9,7 +9,7 @@ export const BannerBox = styled.div<IBannerProps>`
   flex-direction: column;
   justify-content: center;
   height: 80vh;
-  padding: 0 60px;
+  padding: 0 50px;
   /* background-image 속성값으로 여러 요소를 지정할 수 있다. 가장 처음 지정한 요소가 가장 위에 배치된다. */
   background-image: linear-gradient(
       ${props => props.theme.black.veryDark}00,

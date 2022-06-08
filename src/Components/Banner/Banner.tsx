@@ -8,15 +8,14 @@ interface IBannerProps {
 }
 
 function Banner({ bannerMovie, bannerTv }: IBannerProps) {
-  return bannerMovie ? (
-    <BannerBox bgImg={makeImagePath(bannerMovie.backdrop_path || "")}>
-      <Title>{bannerMovie.title}</Title>
-      <Overview>{bannerMovie.overview}</Overview>
-    </BannerBox>
-  ) : (
-    <BannerBox bgImg={makeImagePath(bannerTv?.backdrop_path || "")}>
-      <Title>{bannerTv?.name}</Title>
-      <Overview>{bannerTv?.overview}</Overview>
+  return (
+    <BannerBox
+      bgImg={makeImagePath(
+        bannerMovie?.backdrop_path || bannerTv!.backdrop_path
+      )}
+    >
+      <Title>{bannerMovie?.title || bannerTv!.name}</Title>
+      <Overview>{bannerMovie?.overview || bannerTv!.overview}</Overview>
     </BannerBox>
   );
 }

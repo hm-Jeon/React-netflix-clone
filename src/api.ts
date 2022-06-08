@@ -70,3 +70,19 @@ export async function getOnAirTvProgram() {
     )
   ).json();
 }
+
+export async function getPopularTvProgram() {
+  return (
+    await fetch(
+      `${BASE_PATH}/tv/popular?api_key=${API_KEY}&language=ko&page=1&region=kr`
+    )
+  ).json();
+}
+
+export async function getTopRatedTvProgram() {
+  return (
+    await fetch(
+      `${BASE_PATH}/tv/top_rated?api_key=${API_KEY}&language=ko&page=1&region=kr`
+    )
+  ).json();
+}

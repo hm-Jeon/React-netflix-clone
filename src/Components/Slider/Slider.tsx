@@ -1,6 +1,6 @@
 import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
-import { IGetMoviesResult } from "../../api";
+import { IGetMoviesResult, IGetTvResult } from "../../api";
 import Box from "../Box/Box";
 import {
   BackButton,
@@ -11,7 +11,8 @@ import {
 } from "./Slider.styled";
 
 interface ISliderProps {
-  data: IGetMoviesResult;
+  movieData?: IGetMoviesResult;
+  tvData?: IGetTvResult;
   sliderName: string;
 }
 
@@ -40,13 +41,15 @@ const rowVariants: Variants = {
   }),
 };
 
-function Slider({ data, sliderName }: ISliderProps) {
+function Slider({ movieData, tvData, sliderName }: ISliderProps) {
   const [index, setIndex] = useState(0);
   const [isBack, setIsBack] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const offset = 6;
-  const totalMovies = data!.results.length - 1;
-  const maxIndex = Math.floor(totalMovies / offset - 1);
+  const total = movieData
+    ? movieData.results.length - 1
+    : tvData!.results.length - 1;
+  const maxIndex = Math.floor(total / offset - 1);
 
   const increaseIndex = () => {
     if (isLeaving) return;
@@ -103,17 +106,30 @@ function Slider({ data, sliderName }: ISliderProps) {
                   Banner에 사용한 data.results[0]은 제거 (slice(1)) 
                   offset을 활용하여 paging 처리 (offset * index부터 offset * index + offset까지) 
                 */}
-            {data?.results
-              .slice(1)
-              .slice(offset * index, offset * index + offset)
-              .map((movie, i) => (
-                <Box
-                  key={sliderName + movie.id}
-                  movie={movie}
-                  index={i}
-                  sliderName={sliderName}
-                />
-              ))}
+            {movieData &&
+              movieData.results
+                .slice(1)
+                .slice(offset * index, offset * index + offset)
+                .map((movie, i) => (
+                  <Box
+                    key={sliderName + movie.id}
+                    movie={movie}
+                    sliderName={sliderName}
+                    index={i}
+                  />
+                ))}
+            {tvData &&
+              tvData.results
+                .slice(1)
+                .slice(offset * index, offset * index + offset)
+                .map((tv, i) => (
+                  <Box
+                    key={sliderName + tv.id}
+                    tv={tv}
+                    sliderName={sliderName}
+                    index={i}
+                  />
+                ))}
           </Row>
         </AnimatePresence>
       </Wrapper>

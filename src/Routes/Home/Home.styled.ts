@@ -14,5 +14,5 @@ export const Loader = styled.div`
 
 export const Sliders = styled.div`
   overflow: hidden;
-  padding: 50px 0;
+  padding: 30px 0;
 `;

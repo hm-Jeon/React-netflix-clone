@@ -73,6 +73,7 @@ function Header() {
   const homeMatch = useMatch("/");
   const clickedMovieMatch = useMatch("/movie/:sliderName/:movieId");
   const tvMatch = useMatch("/tv");
+  const clickedTvMatch = useMatch("/tv/:sliderName/:tvId");
 
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -116,7 +117,7 @@ function Header() {
           </Item>
           <Item>
             <Link to="tv">Tv Shows</Link>
-            {tvMatch && <Circle />}
+            {(tvMatch || clickedTvMatch) && <Circle />}
           </Item>
         </Items>
       </Col>
