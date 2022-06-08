@@ -1,4 +1,5 @@
 import { AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { useMatch } from "react-router-dom";
 import {
@@ -53,26 +54,37 @@ function Tv() {
   console.log(clickedTv);
 
   return (
-    <Wrapper>
-      {isLoading ? (
-        <Loader>Loading...</Loader>
-      ) : (
-        <>
-          {" "}
-          <Banner bannerTv={onAirData!.results[0]} />
-          <Sliders>
-            <Slider tvData={onAirData!} sliderName={slider.onAir} />
-            <Slider tvData={popularData!} sliderName={slider.popular} />
-            <Slider tvData={topRatedData!} sliderName={slider.topRated} />
-          </Sliders>
-          <AnimatePresence>
-            {clickedTvMatch ? (
-              <Clicked clickedTvMatch={clickedTvMatch} clickedTv={clickedTv!} />
-            ) : null}
-          </AnimatePresence>
-        </>
-      )}
-    </Wrapper>
+    <>
+      <Helmet>
+        {clickedTv ? (
+          <title>{clickedTv.name} - 넷플릭스</title>
+        ) : (
+          <title>TV - 넷플릭스</title>
+        )}
+      </Helmet>
+      <Wrapper>
+        {isLoading ? (
+          <Loader>Loading...</Loader>
+        ) : (
+          <>
+            <Banner bannerTv={onAirData!.results[0]} />
+            <Sliders>
+              <Slider tvData={onAirData!} sliderName={slider.onAir} />
+              <Slider tvData={popularData!} sliderName={slider.popular} />
+              <Slider tvData={topRatedData!} sliderName={slider.topRated} />
+            </Sliders>
+            <AnimatePresence>
+              {clickedTvMatch ? (
+                <Clicked
+                  clickedTvMatch={clickedTvMatch}
+                  clickedTv={clickedTv!}
+                />
+              ) : null}
+            </AnimatePresence>
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 }
 
