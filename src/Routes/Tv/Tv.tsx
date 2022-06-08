@@ -10,7 +10,8 @@ import {
 import Banner from "../../Components/Banner/Banner";
 import Clicked from "../../Components/Clicked/Clicked";
 import Slider from "../../Components/Slider/Slider";
-import { Loader, Sliders, Wrapper } from "./Tv.styled";
+import { Sliders } from "../../Components/Slider/Slider.styled";
+import { Loader, Wrapper } from "./Tv.styled";
 
 const TV_KEY = "tv";
 
@@ -51,21 +52,26 @@ function Tv() {
 
   console.log(clickedTv);
 
-  return isLoading ? (
-    <Loader>Loading...</Loader>
-  ) : (
+  return (
     <Wrapper>
-      <Banner bannerTv={onAirData!.results[0]} />
-      <Sliders>
-        <Slider tvData={onAirData!} sliderName={slider.onAir} />
-        <Slider tvData={popularData!} sliderName={slider.popular} />
-        <Slider tvData={topRatedData!} sliderName={slider.topRated} />
-      </Sliders>
-      <AnimatePresence>
-        {clickedTvMatch ? (
-          <Clicked clickedTvMatch={clickedTvMatch} clickedTv={clickedTv!} />
-        ) : null}
-      </AnimatePresence>
+      {isLoading ? (
+        <Loader>Loading...</Loader>
+      ) : (
+        <>
+          {" "}
+          <Banner bannerTv={onAirData!.results[0]} />
+          <Sliders>
+            <Slider tvData={onAirData!} sliderName={slider.onAir} />
+            <Slider tvData={popularData!} sliderName={slider.popular} />
+            <Slider tvData={topRatedData!} sliderName={slider.topRated} />
+          </Sliders>
+          <AnimatePresence>
+            {clickedTvMatch ? (
+              <Clicked clickedTvMatch={clickedTvMatch} clickedTv={clickedTv!} />
+            ) : null}
+          </AnimatePresence>
+        </>
+      )}
     </Wrapper>
   );
 }

@@ -11,8 +11,3 @@ export const Loader = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export const Sliders = styled.div`
-  overflow: hidden;
-  padding: 30px 0;
-`;

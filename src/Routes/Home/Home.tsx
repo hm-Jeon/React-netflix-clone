@@ -5,13 +5,14 @@ import {
   IGetMoviesResult,
 } from "../../api";
 import { useQuery } from "react-query";
-import { Loader, Sliders, Wrapper } from "./Home.styled";
+import { Loader, Wrapper } from "./Home.styled";
 import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import Clicked from "../../Components/Clicked/Clicked";
 import { Helmet } from "react-helmet-async";
 import Banner from "../../Components/Banner/Banner";
+import { Sliders } from "../../Components/Slider/Slider.styled";
 
 const MOVIES_KEY = "movies";
 

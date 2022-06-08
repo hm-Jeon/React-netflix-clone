@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
+export const Sliders = styled.div`
+  position: relative;
+  top: -30px;
+  overflow-x: hidden;
+  padding: 30px 0;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
 export const Wrapper = styled.div`
   position: relative;
   height: 150px;
