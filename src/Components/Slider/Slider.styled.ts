@@ -12,6 +12,25 @@ export const Sliders = styled.div`
   }
 `;
 
+export const SliderBars = styled.div`
+  display: none;
+  gap: 2px;
+  position: absolute;
+  top: -20px;
+  right: 60px;
+`;
+
+interface ISliderBarProps {
+  active: boolean;
+}
+
+export const SliderBar = styled.div<ISliderBarProps>`
+  height: 2px;
+  width: 15px;
+  background-color: ${props =>
+    props.active ? props.theme.white.darker : props.theme.black.lighter};
+`;
+
 export const Wrapper = styled.div`
   position: relative;
   height: 150px;
@@ -20,6 +39,10 @@ export const Wrapper = styled.div`
   &:hover {
     button {
       opacity: 1;
+    }
+
+    & > ${SliderBars} {
+      display: flex;
     }
   }
 `;

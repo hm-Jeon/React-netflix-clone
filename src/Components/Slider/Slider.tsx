@@ -6,6 +6,8 @@ import {
   BackButton,
   NextButton,
   Row,
+  SliderBar,
+  SliderBars,
   SliderTitle,
   Wrapper,
 } from "./Slider.styled";
@@ -77,6 +79,11 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
     <>
       <SliderTitle>{sliderName}</SliderTitle>
       <Wrapper key={sliderName}>
+        <SliderBars>
+          {[...Array(maxIndex + 1)].map((v, i) => {
+            return <SliderBar active={index === i}></SliderBar>;
+          })}
+        </SliderBars>
         <AnimatePresence
           custom={isBack}
           initial={false}
