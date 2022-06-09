@@ -44,13 +44,15 @@ function Search() {
       ) : (
         <>
           <Sliders>
-            <Slider
-              sliderName="movie"
-              movieData={searchMovieData!}
-              cutOutRemainder={false}
-              slider_col={6}
-              slice_first={false}
-            />
+            {searchMovieData!.results.length > 0 && (
+              <Slider
+                sliderName="movie"
+                movieData={searchMovieData!}
+                cutOutRemainder={false}
+                slider_col={6}
+                slice_first={false}
+              />
+            )}
             {searchTvData!.results.length > 0 && (
               <Slider
                 sliderName="tv"
