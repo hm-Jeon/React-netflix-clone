@@ -91,8 +91,6 @@ function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
           originX: index === 0 ? 0 : index === slider_col - 1 ? 1 : 0.5,
         }}
       >
-        {/* 부모 컴포넌트의 variants는 자식 컴포넌트에 자동으로 상속된다. */}
-
         <Poster
           key={sliderName + "poster"}
           src={makeImagePath(

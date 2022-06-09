@@ -61,8 +61,6 @@ function Slider({
     : tvData!.results.length - 1;
   const maxIndex = Math.floor(total / offset) - (cutOutRemainder ? 1 : 0);
 
-  console.log(movieData);
-
   const increaseIndex = () => {
     if (isLeaving) return;
 
