@@ -79,7 +79,7 @@ function Header() {
 
   const toggleSearch = () => {
     setSearchOpen(current => {
-      !current && setFocus("keyword");
+      !current ? setFocus("keyword") : setValue("keyword", "");
       return !current;
     });
   };
@@ -93,7 +93,7 @@ function Header() {
   }, [scrollY]);
 
   const navigate = useNavigate();
-  const { register, handleSubmit, setFocus } = useForm<IForm>();
+  const { register, handleSubmit, setFocus, setValue } = useForm<IForm>();
   const onValid = (data: IForm) => {
     navigate(`/search?keyword=${data.keyword}`);
   };
