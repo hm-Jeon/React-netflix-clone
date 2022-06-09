@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const Sliders = styled.div`
   position: relative;
   padding-bottom: 60px;
-  z-index: 10;
+  z-index: 1;
 
   &::-webkit-scrollbar {
     display: none;
@@ -53,12 +53,16 @@ export const SliderTitle = styled.h1`
   text-transform: uppercase;
 `;
 
-export const Row = styled(motion.div)`
+interface IRowProps {
+  slider_col: number;
+}
+
+export const Row = styled(motion.div)<IRowProps>`
   position: absolute;
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(${props => props.slider_col}, 1fr);
   gap: 5px;
   padding: 0 50px;
 `;

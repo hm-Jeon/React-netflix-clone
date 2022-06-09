@@ -16,6 +16,9 @@ interface ISliderProps {
   movieData?: IGetMoviesResult;
   tvData?: IGetTvResult;
   sliderName: string;
+  cutOutRemainder?: boolean;
+  slider_col?: number;
+  slice_first?: boolean;
 }
 
 const rowVariants: Variants = {
@@ -41,15 +44,24 @@ const rowVariants: Variants = {
   }),
 };
 
-function Slider({ movieData, tvData, sliderName }: ISliderProps) {
+function Slider({
+  movieData,
+  tvData,
+  sliderName,
+  slider_col = 6,
+  cutOutRemainder = true,
+  slice_first = true,
+}: ISliderProps) {
   const [index, setIndex] = useState(0);
   const [isBack, setIsBack] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
-  const offset = 6;
+  const offset = slider_col;
   const total = movieData
     ? movieData.results.length - 1
     : tvData!.results.length - 1;
-  const maxIndex = Math.floor(total / offset - 1);
+  const maxIndex = Math.floor(total / offset) - (cutOutRemainder ? 1 : 0);
+
+  console.log(movieData);
 
   const increaseIndex = () => {
     if (isLeaving) return;
@@ -108,6 +120,7 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
             animate="visible"
             exit="exit"
             custom={isBack}
+            slider_col={offset}
           >
             {/* 
                   Banner에 사용한 data.results[0]은 제거 (slice(1)) 
@@ -115,7 +128,7 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
                 */}
             {movieData &&
               movieData.results
-                .slice(1)
+                .slice(slice_first ? 1 : 0)
                 .slice(offset * index, offset * index + offset)
                 .map((movie, i) => (
                   <Box
@@ -123,11 +136,12 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
                     movie={movie}
                     sliderName={sliderName}
                     index={i}
+                    slider_col={slider_col}
                   />
                 ))}
             {tvData &&
               tvData.results
-                .slice(1)
+                .slice(slice_first ? 1 : 0)
                 .slice(offset * index, offset * index + offset)
                 .map((tv, i) => (
                   <Box
@@ -135,6 +149,7 @@ function Slider({ movieData, tvData, sliderName }: ISliderProps) {
                     tv={tv}
                     sliderName={sliderName}
                     index={i}
+                    slider_col={slider_col}
                   />
                 ))}
           </Row>

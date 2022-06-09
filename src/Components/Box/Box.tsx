@@ -21,7 +21,7 @@ const boxVariants: Variants = {
   hover: {
     scale: 1.5,
     y: -45,
-    zIndex: 5,
+    zIndex: 2,
     boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.2)",
     transition: {
       type: "tween",
@@ -60,9 +60,10 @@ interface IBoxProps {
   tv?: ITv;
   index: number;
   sliderName: string;
+  slider_col: number;
 }
 
-function Box({ movie, tv, index, sliderName }: IBoxProps) {
+function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
   const navigate = useNavigate();
 
   const onBoxClicked = (sliderName: string, movieId: number) => {
@@ -86,7 +87,9 @@ function Box({ movie, tv, index, sliderName }: IBoxProps) {
           setIsHover(false);
         }}
         layoutId={sliderName + String(movie?.id || tv!.id)}
-        style={{ originX: index === 0 ? 0 : index === 5 ? 1 : 0.5 }}
+        style={{
+          originX: index === 0 ? 0 : index === slider_col - 1 ? 1 : 0.5,
+        }}
       >
         {/* 부모 컴포넌트의 variants는 자식 컴포넌트에 자동으로 상속된다. */}
 
