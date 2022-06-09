@@ -10,14 +10,7 @@ export interface IMovie {
 }
 
 export interface IGetMoviesResult {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
-  page: number;
   results: IMovie[];
-  total_pages: number;
-  total_results: number;
 }
 
 export async function getNowPlayingMovies() {
@@ -53,14 +46,7 @@ export interface ITv {
 }
 
 export interface IGetTvResult {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
-  page: number;
   results: ITv[];
-  total_pages: number;
-  total_results: number;
 }
 
 export async function getOnAirTvProgram() {
@@ -86,3 +72,19 @@ export async function getTopRatedTvProgram() {
     )
   ).json();
 }
+
+export const searchMovie = async (query: string) => {
+  return (
+    await fetch(
+      `${BASE_PATH}/search/movie?api_key=${API_KEY}&language=ko&query=${query}&region=kr&include_adult=true`
+    )
+  ).json();
+};
+
+export const searchTv = async (query: string) => {
+  return (
+    await fetch(
+      `${BASE_PATH}/search/tv?api_key=${API_KEY}&language=ko&query=${query}&region=kr&include_adult=true`
+    )
+  ).json();
+};
