@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 
 export const Sliders = styled.div`
   position: relative;
-  top: -50px;
-  overflow-x: hidden;
-  padding: 30px 0 50px;
+  padding-bottom: 60px;
+  z-index: 10;
 
   &::-webkit-scrollbar {
     display: none;
@@ -34,7 +33,7 @@ export const SliderBar = styled.div<ISliderBarProps>`
 export const Wrapper = styled.div`
   position: relative;
   height: 150px;
-  margin: 0 0 50px;
+  margin-bottom: 50px;
 
   &:hover {
     button {

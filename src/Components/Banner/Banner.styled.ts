@@ -31,7 +31,6 @@ export const Title = styled.h2`
   font-weight: 600;
   line-height: 1.2em;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-  white-space: nowrap;
 `;
 
 export const Overview = styled.p`

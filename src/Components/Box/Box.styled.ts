@@ -80,6 +80,7 @@ export const PlayButton = styled(Button)`
 
 export const Title = styled.h1`
   font-size: 14px;
+  font-weight: 600;
   text-align: center;
   display: -webkit-box;
   -webkit-box-orient: vertical;

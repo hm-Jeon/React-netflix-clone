@@ -19,9 +19,9 @@ const boxVariants: Variants = {
     scale: 1,
   },
   hover: {
-    scale: 1.3,
-    y: -50,
-    zIndex: 2,
+    scale: 1.5,
+    y: -45,
+    zIndex: 5,
     boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.2)",
     transition: {
       type: "tween",
