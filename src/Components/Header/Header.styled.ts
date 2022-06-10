@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Nav = styled(motion.nav)`
   position: fixed;
@@ -38,19 +38,33 @@ export const Path = styled(motion.path)``;
 export const Items = styled.ul`
   display: flex;
   align-items: center;
-  cursor: pointer;
 `;
 
-export const Item = styled.li`
+interface IItemProps {
+  active: boolean;
+}
+
+export const Item = styled.li<IItemProps>`
   position: relative;
   display: flex;
   justify-content: center;
   margin-right: 20px;
-  color: ${props => props.theme.white.darker};
-  transition: color 0.3s ease-in-out;
 
-  &:hover {
-    color: ${props => props.theme.white.lighter};
+  a {
+    color: ${props =>
+      props.active ? props.theme.white.lighter : props.theme.white.darker};
+    font-size: 16px;
+    font-weight: ${props => (props.active ? "600" : "200")};
+    cursor: ${props => (props.active ? "default" : "pointer")};
+    transition: color 0.3s ease-in-out, font-weight 0.3s ease-in-out;
+
+    &:hover {
+      ${props =>
+        !props.active &&
+        css`
+          color: gray;
+        `}
+    }
   }
 `;
 
