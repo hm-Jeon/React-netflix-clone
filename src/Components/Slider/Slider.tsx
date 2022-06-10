@@ -1,6 +1,6 @@
 import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
-import { IGetMoviesResult, IGetTvResult } from "../../api";
+import { IMovie, ITv } from "../../api";
 import Box from "../Box/Box";
 import {
   BackButton,
@@ -13,8 +13,7 @@ import {
 } from "./Slider.styled";
 
 interface ISliderProps {
-  movieData?: IGetMoviesResult;
-  tvData?: IGetTvResult;
+  data?: (IMovie & ITv)[];
   sliderName: string;
   cutOutRemainder?: boolean;
   slider_col?: number;
@@ -45,8 +44,7 @@ const rowVariants: Variants = {
 };
 
 function Slider({
-  movieData,
-  tvData,
+  data,
   sliderName,
   slider_col = 6,
   cutOutRemainder = true,
@@ -56,9 +54,7 @@ function Slider({
   const [isBack, setIsBack] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const offset = slider_col;
-  const total = movieData
-    ? movieData.results.length - 1
-    : tvData!.results.length - 1;
+  const total = data!.length! - 1;
   const maxIndex = Math.floor(total / offset) - (cutOutRemainder ? 1 : 0);
 
   const increaseIndex = () => {
@@ -124,27 +120,14 @@ function Slider({
                   Banner에 사용한 data.results[0]은 제거 (slice(1)) 
                   offset을 활용하여 paging 처리 (offset * index부터 offset * index + offset까지) 
                 */}
-            {movieData &&
-              movieData.results
+            {data &&
+              data
                 .slice(slice_first ? 1 : 0)
                 .slice(offset * index, offset * index + offset)
                 .map((movie, i) => (
                   <Box
                     key={sliderName + movie.id}
-                    movie={movie}
-                    sliderName={sliderName}
-                    index={i}
-                    slider_col={slider_col}
-                  />
-                ))}
-            {tvData &&
-              tvData.results
-                .slice(slice_first ? 1 : 0)
-                .slice(offset * index, offset * index + offset)
-                .map((tv, i) => (
-                  <Box
-                    key={sliderName + tv.id}
-                    tv={tv}
+                    data={movie as IMovie & ITv}
                     sliderName={sliderName}
                     index={i}
                     slider_col={slider_col}

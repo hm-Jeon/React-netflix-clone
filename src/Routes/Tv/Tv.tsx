@@ -2,17 +2,20 @@ import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
-import { useMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import {
   getOnAirTvProgram,
   getPopularTvProgram,
   getTopRatedTvProgram,
   IGetTvResult,
+  IMovie,
+  ITv,
 } from "../../api";
 import Banner from "../../Components/Banner/Banner";
 import Clicked from "../../Components/Clicked/Clicked";
 import Slider from "../../Components/Slider/Slider";
 import { Sliders } from "../../Components/Slider/Slider.styled";
+import { QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
 import { Loader, Wrapper } from "./Tv.styled";
 
 const TV_KEY = "tv";
@@ -37,18 +40,18 @@ function Tv() {
 
   const isLoading = onAirLoading || popularLoading || topRatedLoading;
 
-  const clickedTvMatch = useMatch("/tv/:sliderName/:tvId");
+  const clickedTvMatch = new URLSearchParams(useLocation().search);
 
   const findTv = (data: IGetTvResult) => {
     return data?.results.find(
-      tv => String(tv.id) === clickedTvMatch?.params.tvId
+      tv => String(tv.id) === clickedTvMatch.get(QUERY_ID)
     );
   };
 
   const clickedTv =
-    clickedTvMatch?.params.sliderName === slider.onAir
+    clickedTvMatch.get(QUERY_SLIDERNAME) === slider.onAir
       ? findTv(onAirData!)
-      : clickedTvMatch?.params.sliderName === slider.popular
+      : clickedTvMatch.get(QUERY_SLIDERNAME) === slider.popular
       ? findTv(popularData!)
       : findTv(topRatedData!);
 
@@ -72,15 +75,24 @@ function Tv() {
           <>
             <Banner bannerTv={onAirData!.results[0]} />
             <Sliders>
-              <Slider tvData={onAirData!} sliderName={slider.onAir} />
-              <Slider tvData={popularData!} sliderName={slider.popular} />
-              <Slider tvData={topRatedData!} sliderName={slider.topRated} />
+              <Slider
+                data={onAirData!.results! as (IMovie & ITv)[]}
+                sliderName={slider.onAir}
+              />
+              <Slider
+                data={popularData!.results! as (IMovie & ITv)[]}
+                sliderName={slider.popular}
+              />
+              <Slider
+                data={topRatedData!.results! as (IMovie & ITv)[]}
+                sliderName={slider.topRated}
+              />
             </Sliders>
             <AnimatePresence>
-              {clickedTvMatch ? (
+              {clickedTvMatch.has(QUERY_SLIDERNAME) ? (
                 <Clicked
-                  clickedTvMatch={clickedTvMatch}
-                  clickedTv={clickedTv!}
+                  clickedMatch={clickedTvMatch}
+                  data={clickedTv as IMovie & ITv}
                 />
               ) : null}
             </AnimatePresence>

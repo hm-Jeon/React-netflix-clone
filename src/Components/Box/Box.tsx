@@ -56,18 +56,17 @@ const infoVariants: Variants = {
 };
 
 interface IBoxProps {
-  movie?: IMovie;
-  tv?: ITv;
+  data: IMovie & ITv;
   index: number;
   sliderName: string;
   slider_col: number;
 }
 
-function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
+function Box({ data, index, sliderName, slider_col }: IBoxProps) {
   const navigate = useNavigate();
 
-  const onBoxClicked = (sliderName: string, movieId: number) => {
-    navigate(`/${movie ? "movie" : "tv"}/${sliderName}/${movieId}`);
+  const onBoxClicked = (sliderName: string, id: number) => {
+    navigate(`?sliderName=${sliderName}&id=${id}`);
   };
 
   const [isHover, setIsHover] = useState(false);
@@ -75,7 +74,7 @@ function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
   return (
     <AnimatePresence initial={true}>
       <Wrapper
-        key={sliderName + movie?.id || tv!.id}
+        key={sliderName + data!.id}
         variants={boxVariants}
         initial="initial"
         whileHover="hover"
@@ -86,7 +85,7 @@ function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
         onHoverEnd={() => {
           setIsHover(false);
         }}
-        layoutId={sliderName + String(movie?.id || tv!.id)}
+        layoutId={sliderName + String(data!.id)}
         style={{
           originX: index === 0 ? 0 : index === slider_col - 1 ? 1 : 0.5,
         }}
@@ -94,11 +93,7 @@ function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
         <Poster
           key={sliderName + "poster"}
           src={makeImagePath(
-            movie?.backdrop_path
-              ? movie?.backdrop_path
-              : movie?.poster_path || tv!.backdrop_path
-              ? tv!.backdrop_path
-              : tv!.poster_path,
+            data!.backdrop_path! ? data!.backdrop_path! : data!.poster_path!,
             "w500"
           )}
           alt="No Image"
@@ -122,13 +117,13 @@ function Box({ movie, tv, index, sliderName, slider_col }: IBoxProps) {
             </ButtonGroup>
             <Button
               onClick={() => {
-                onBoxClicked(sliderName, movie?.id || tv!.id);
+                onBoxClicked(sliderName, data!.id);
               }}
             >
               <i className="fa-solid fa-chevron-down"></i>
             </Button>
           </Buttons>
-          <Title>{movie?.title || tv!.name}</Title>
+          <Title>{data!.title || data!.name}</Title>
         </Info>
       </Wrapper>
     </AnimatePresence>

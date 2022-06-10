@@ -1,7 +1,8 @@
 import { Variants } from "framer-motion";
-import { PathMatch, useNavigate } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
+import { URLSearchParams } from "url";
 import { IMovie, ITv } from "../../api";
-import { makeImagePath } from "../../utils";
+import { makeImagePath, QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
 import {
   Cover,
   Info,
@@ -31,18 +32,13 @@ const overlayVariants: Variants = {
 };
 
 const clickedVariants: Variants = {
-  hidden: {
-    // opacity: 0,
-  },
   visible: {
-    // opacity: 1,
     boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.2)",
     transition: {
       duration: 0.5,
     },
   },
   exit: {
-    // opacity: 0,
     transition: {
       duration: 0.5,
     },
@@ -50,22 +46,16 @@ const clickedVariants: Variants = {
 };
 
 interface IClickedProps {
-  clickedMovieMatch?: PathMatch<"sliderName" | "movieId">;
-  clickedTvMatch?: PathMatch<"sliderName" | "tvId">;
-  clickedMovie?: IMovie;
-  clickedTv?: ITv;
+  clickedMatch: URLSearchParams;
+  data: IMovie & ITv;
 }
 
-function Clicked({
-  clickedMovieMatch,
-  clickedMovie,
-  clickedTvMatch,
-  clickedTv,
-}: IClickedProps) {
+function Clicked({ clickedMatch, data }: IClickedProps) {
+  const homeMatch = useMatch("/");
   const navigate = useNavigate();
 
   const onBackBtnClick = () => {
-    clickedMovieMatch ? navigate("/") : navigate("/tv");
+    homeMatch ? navigate("/") : navigate("/tv");
   };
 
   return (
@@ -73,33 +63,26 @@ function Clicked({
       <Overlay {...overlayVariants} />
       <ClickedMovieBox
         variants={clickedVariants}
-        initial="hidden"
         animate="visible"
         exit="exit"
         layoutId={
-          clickedMovieMatch?.params.sliderName! +
-            clickedMovieMatch?.params.movieId! ||
-          clickedTvMatch!.params.sliderName! + clickedTvMatch!.params.tvId!
+          clickedMatch!.get(QUERY_SLIDERNAME)! + clickedMatch!.get(QUERY_ID)!
         }
       >
         <>
           <Cover
             bgImg={makeImagePath(
-              clickedMovie?.backdrop_path
-                ? clickedMovie?.backdrop_path
-                : clickedMovie?.poster_path || clickedTv!.backdrop_path
-                ? clickedTv!.backdrop_path
-                : clickedTv!.poster_path,
+              data!.backdrop_path! ? data!.backdrop_path! : data!.poster_path!,
               "original"
             )}
           >
             <BackBtn onClick={onBackBtnClick}>
               <i className="fa-solid fa-arrow-left"></i>
             </BackBtn>
-            <Title>{clickedMovie?.title || clickedTv!.name}</Title>
+            <Title>{data!.title || data!.name}</Title>
           </Cover>
           <Info>
-            <Overview>{clickedMovie?.overview || clickedTv!.overview}</Overview>
+            <Overview>{data?.overview || ""}</Overview>
           </Info>
         </>
       </ClickedMovieBox>

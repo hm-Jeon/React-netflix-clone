@@ -62,12 +62,12 @@ const navVariant: Variants = {
 };
 
 interface IForm {
-  keyword: string;
+  query: string;
 }
 
 function Header() {
   const homeMatch = useMatch("/");
-  const clickedMovieMatch = useMatch("/movie/:sliderName/:movieId");
+  const clickedMovieMatch = useMatch(":sliderName/:movieId");
   const tvMatch = useMatch("/tv");
   const clickedTvMatch = useMatch("/tv/:sliderName/:tvId");
   const navigate = useNavigate();
@@ -90,13 +90,13 @@ function Header() {
 
   const toggleSearch = () => {
     setSearchOpen(current => {
-      !current ? setFocus("keyword") : setValue("keyword", "");
+      !current ? setFocus("query") : setValue("query", "");
       return !current;
     });
   };
 
   const onValid = (data: IForm) => {
-    navigate(`/search?keyword=${data.keyword}`);
+    navigate(`/search?query=${data.query}`);
   };
 
   return (
@@ -141,7 +141,7 @@ function Header() {
             ></path>
           </Svg>
           <Input
-            {...register("keyword", { required: true, minLength: 2 })}
+            {...register("query", { required: true, minLength: 2 })}
             placeholder="Search"
             {...inputVariant}
             custom={searchOpen}

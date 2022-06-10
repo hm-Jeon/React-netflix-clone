@@ -4,6 +4,8 @@ import { useLocation } from "react-router-dom";
 import {
   IGetMoviesResult,
   IGetTvResult,
+  IMovie,
+  ITv,
   searchMovie,
   searchTv,
 } from "../../api";
@@ -14,7 +16,7 @@ import { Wrapper } from "./Search.styled";
 
 function Search() {
   // URLSearchParams: URL string에서 parameter값을 parsing해준다. get() 함수를 이용한다.
-  const query = new URLSearchParams(useLocation().search).get("keyword");
+  const query = new URLSearchParams(useLocation().search).get("query");
 
   const { isLoading: searchMovieLoading, data: searchMovieData } =
     useQuery<IGetMoviesResult>(["search", "movie", query], () =>
@@ -41,7 +43,7 @@ function Search() {
   return (
     <>
       <Helmet>
-        <title>{query} 검색 - 넷플릭스</title>
+        <title>검색 - 넷플릭스</title>
       </Helmet>
       <Wrapper>
         {isLoading ? (
@@ -52,18 +54,16 @@ function Search() {
               {searchMovieData!.results.length > 0 && (
                 <Slider
                   sliderName="movie"
-                  movieData={searchMovieData!}
+                  data={searchMovieData!.results! as (IMovie & ITv)[]}
                   cutOutRemainder={false}
-                  slider_col={6}
                   slice_first={false}
                 />
               )}
               {searchTvData!.results.length > 0 && (
                 <Slider
                   sliderName="tv"
-                  tvData={searchTvData!}
+                  data={searchTvData!.results! as (IMovie & ITv)[]}
                   cutOutRemainder={false}
-                  slider_col={6}
                   slice_first={false}
                 />
               )}

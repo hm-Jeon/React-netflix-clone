@@ -3,17 +3,20 @@ import {
   getPopularMovies,
   getTopRatedMovies,
   IGetMoviesResult,
+  IMovie,
+  ITv,
 } from "../../api";
 import { useQuery } from "react-query";
 import { Loader, Wrapper } from "./Home.styled";
 import Slider from "../../Components/Slider/Slider";
 import { AnimatePresence } from "framer-motion";
-import { useMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Clicked from "../../Components/Clicked/Clicked";
 import { Helmet } from "react-helmet-async";
 import Banner from "../../Components/Banner/Banner";
 import { Sliders } from "../../Components/Slider/Slider.styled";
 import { useEffect } from "react";
+import { QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
 
 const MOVIES_KEY = "movies";
 
@@ -41,19 +44,19 @@ function Home() {
 
   const isLoading = nowPlayingLoading || popularLoading || upTopRatedLoading;
 
-  const clickedMovieMatch = useMatch("/movie/:sliderName/:movieId");
+  const clickedMovieMatch = new URLSearchParams(useLocation().search);
 
   const findMovie = (data: IGetMoviesResult) => {
     return data?.results.find(
-      movie => String(movie.id) === clickedMovieMatch?.params.movieId
+      movie => String(movie.id) === clickedMovieMatch.get(QUERY_ID)
     );
   };
 
   // Array.find() 함수를 이용해서 배열 중 맞는 조건의 요소를 찾을 수 있다.
   const clickedMovie =
-    clickedMovieMatch?.params.sliderName === slider.nowPlaying
+    clickedMovieMatch.get(QUERY_SLIDERNAME) === slider.nowPlaying
       ? findMovie(nowPlayingData!)
-      : clickedMovieMatch?.params.sliderName === slider.popular
+      : clickedMovieMatch.get(QUERY_SLIDERNAME) === slider.popular
       ? findMovie(popularData!)
       : findMovie(topRatedData!);
 
@@ -79,17 +82,23 @@ function Home() {
             <Banner bannerMovie={nowPlayingData?.results[0]!} />
             <Sliders>
               <Slider
-                movieData={nowPlayingData!}
+                data={nowPlayingData!.results! as (IMovie & ITv)[]}
                 sliderName={slider.nowPlaying}
               />
-              <Slider movieData={popularData!} sliderName={slider.popular} />
-              <Slider movieData={topRatedData!} sliderName={slider.topRated} />
+              <Slider
+                data={popularData!.results! as (IMovie & ITv)[]}
+                sliderName={slider.popular}
+              />
+              <Slider
+                data={topRatedData!.results! as (IMovie & ITv)[]}
+                sliderName={slider.topRated}
+              />
             </Sliders>
             <AnimatePresence>
-              {clickedMovieMatch ? (
+              {clickedMovieMatch.has(QUERY_SLIDERNAME) ? (
                 <Clicked
-                  clickedMovieMatch={clickedMovieMatch}
-                  clickedMovie={clickedMovie}
+                  clickedMatch={clickedMovieMatch}
+                  data={clickedMovie as IMovie & ITv}
                 />
               ) : null}
             </AnimatePresence>
