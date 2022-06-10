@@ -97,11 +97,16 @@ function Box({ data, index, sliderName, slider_col }: IBoxProps) {
       >
         <Poster
           key={sliderName + "poster"}
-          src={makeImagePath(
-            data!.backdrop_path! ? data!.backdrop_path! : data!.poster_path!,
-            "w500"
-          )}
-          alt="No Image"
+          src={
+            data!.backdrop_path || data!.poster_path
+              ? makeImagePath(
+                  data!.backdrop_path!
+                    ? data!.backdrop_path!
+                    : data!.poster_path!,
+                  "w500"
+                )
+              : "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder.png"
+          }
         ></Poster>
         <Info
           key={sliderName + "info"}

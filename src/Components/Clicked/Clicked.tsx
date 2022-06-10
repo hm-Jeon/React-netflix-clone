@@ -75,10 +75,16 @@ function Clicked({ clickedMatch, data }: IClickedProps) {
       >
         <>
           <Cover
-            bgImg={makeImagePath(
-              data!.backdrop_path! ? data!.backdrop_path! : data!.poster_path!,
-              "original"
-            )}
+            bgImg={
+              data!.backdrop_path || data!.poster_path
+                ? makeImagePath(
+                    data!.backdrop_path!
+                      ? data!.backdrop_path!
+                      : data!.poster_path!,
+                    "original"
+                  )
+                : "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder.png"
+            }
           >
             <BackBtn onClick={onBackBtnClick}>
               <i className="fa-solid fa-arrow-left"></i>
