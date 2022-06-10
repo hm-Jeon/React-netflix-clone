@@ -1,7 +1,12 @@
 import { Variants } from "framer-motion";
 import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
-import { makeImagePath, QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
+import {
+  DEFAULT_IMAGE,
+  makeImagePath,
+  QUERY_ID,
+  QUERY_SLIDERNAME,
+} from "../../utils";
 import {
   Cover,
   Info,
@@ -83,7 +88,7 @@ function Clicked({ clickedMatch, data }: IClickedProps) {
                       : data!.poster_path!,
                     "original"
                   )
-                : "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder.png"
+                : DEFAULT_IMAGE
             }
           >
             <BackBtn onClick={onBackBtnClick}>

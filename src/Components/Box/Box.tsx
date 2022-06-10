@@ -2,7 +2,7 @@ import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
-import { makeImagePath } from "../../utils";
+import { DEFAULT_IMAGE, makeImagePath } from "../../utils";
 import {
   Button,
   ButtonGroup,
@@ -105,7 +105,7 @@ function Box({ data, index, sliderName, slider_col }: IBoxProps) {
                     : data!.poster_path!,
                   "w500"
                 )
-              : "http://www.mth.co.kr/wp-content/uploads/2014/12/default-placeholder.png"
+              : DEFAULT_IMAGE
           }
         ></Poster>
         <Info
