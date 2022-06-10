@@ -29,18 +29,6 @@ function Search() {
   const { isLoading: searchTvLoading, data: searchTvData } =
     useQuery<IGetTvResult>(["search", "tv", query], () => searchTv(query!));
 
-  console.log(searchMovieData, searchTvData);
-
-  if (searchMovieData)
-    searchMovieData.results = searchMovieData?.results.filter(
-      movie => movie.backdrop_path !== null
-    );
-
-  if (searchTvData)
-    searchTvData.results = searchTvData?.results.filter(
-      tv => tv.backdrop_path !== null
-    );
-
   const isLoading = searchMovieLoading || searchTvLoading;
 
   const clickedSearchedItemMatch = new URLSearchParams(useLocation().search);
