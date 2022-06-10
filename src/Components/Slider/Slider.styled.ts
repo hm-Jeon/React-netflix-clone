@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 export const Sliders = styled.div`
   position: relative;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
   z-index: 1;
 
   &::-webkit-scrollbar {
