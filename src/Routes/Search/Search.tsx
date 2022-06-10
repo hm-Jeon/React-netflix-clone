@@ -48,7 +48,7 @@ function Search() {
   return (
     <>
       <Helmet>
-        <title>검색 - 넷플릭스</title>
+        <title>{query} 검색 - 넷플릭스</title>
       </Helmet>
       <Wrapper>
         {isLoading ? (
