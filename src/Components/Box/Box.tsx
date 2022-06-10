@@ -1,6 +1,6 @@
 import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
 import { makeImagePath } from "../../utils";
 import {
@@ -64,9 +64,14 @@ interface IBoxProps {
 
 function Box({ data, index, sliderName, slider_col }: IBoxProps) {
   const navigate = useNavigate();
+  const searchMatch = new URLSearchParams(useLocation().search);
 
   const onBoxClicked = (sliderName: string, id: number) => {
-    navigate(`?sliderName=${sliderName}&id=${id}`);
+    searchMatch.has("query")
+      ? navigate(
+          `?query=${searchMatch.get("query")}&sliderName=${sliderName}&id=${id}`
+        )
+      : navigate(`?sliderName=${sliderName}&id=${id}`);
   };
 
   const [isHover, setIsHover] = useState(false);

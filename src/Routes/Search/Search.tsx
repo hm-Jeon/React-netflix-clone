@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
@@ -9,8 +10,10 @@ import {
   searchMovie,
   searchTv,
 } from "../../api";
+import Clicked from "../../Components/Clicked/Clicked";
 import Slider from "../../Components/Slider/Slider";
 import { Sliders } from "../../Components/Slider/Slider.styled";
+import { QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
 import { Loader } from "../Home/Home.styled";
 import { Wrapper } from "./Search.styled";
 
@@ -40,6 +43,20 @@ function Search() {
 
   const isLoading = searchMovieLoading || searchTvLoading;
 
+  const clickedSearchedItemMatch = new URLSearchParams(useLocation().search);
+
+  const findSearchedItem = (data: IGetMoviesResult & IGetTvResult) => {
+    return data?.results.find(
+      item => String(item.id) === clickedSearchedItemMatch.get(QUERY_ID)
+    );
+  };
+
+  const clickedSearchedItem =
+    clickedSearchedItemMatch.get(QUERY_SLIDERNAME) === "movie"
+      ? findSearchedItem(searchMovieData as IGetMoviesResult & IGetTvResult)
+      : clickedSearchedItemMatch.get(QUERY_SLIDERNAME) === "tv" &&
+        findSearchedItem(searchTvData as IGetMoviesResult & IGetTvResult);
+
   return (
     <>
       <Helmet>
@@ -68,6 +85,14 @@ function Search() {
                 />
               )}
             </Sliders>
+            <AnimatePresence>
+              {clickedSearchedItemMatch.has(QUERY_SLIDERNAME) ? (
+                <Clicked
+                  clickedMatch={clickedSearchedItemMatch}
+                  data={clickedSearchedItem as IMovie & ITv}
+                />
+              ) : null}
+            </AnimatePresence>
           </>
         )}
       </Wrapper>

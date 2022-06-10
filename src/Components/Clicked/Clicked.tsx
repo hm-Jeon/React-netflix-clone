@@ -1,6 +1,5 @@
 import { Variants } from "framer-motion";
-import { useMatch, useNavigate } from "react-router-dom";
-import { URLSearchParams } from "url";
+import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
 import { makeImagePath, QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
 import {
@@ -52,10 +51,15 @@ interface IClickedProps {
 
 function Clicked({ clickedMatch, data }: IClickedProps) {
   const homeMatch = useMatch("/");
+  const tvMatch = useMatch("/tv");
+  const searchMatch = new URLSearchParams(useLocation().search);
   const navigate = useNavigate();
 
   const onBackBtnClick = () => {
-    homeMatch ? navigate("/") : navigate("/tv");
+    if (homeMatch) navigate("/");
+    else if (tvMatch) navigate("/tv");
+    else if (searchMatch.has("query"))
+      navigate(`/search?query=${searchMatch.get("query")}`);
   };
 
   return (
