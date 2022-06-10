@@ -1,12 +1,7 @@
 import { Variants } from "framer-motion";
 import { useLocation, useMatch, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
-import {
-  DEFAULT_IMAGE,
-  makeImagePath,
-  QUERY_ID,
-  QUERY_SLIDERNAME,
-} from "../../utils";
+import { makeImagePath, QUERY_ID, QUERY_SLIDERNAME } from "../../utils";
 import {
   Cover,
   Info,
@@ -16,6 +11,7 @@ import {
   Overlay,
   BackBtn,
 } from "./Clicked.styled";
+import defaultImage from "../../images/defaultImage.png";
 
 const overlayVariants: Variants = {
   initial: {
@@ -88,7 +84,7 @@ function Clicked({ clickedMatch, data }: IClickedProps) {
                       : data!.poster_path!,
                     "original"
                   )
-                : DEFAULT_IMAGE
+                : defaultImage
             }
           >
             <BackBtn onClick={onBackBtnClick}>

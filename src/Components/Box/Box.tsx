@@ -2,7 +2,7 @@ import { AnimatePresence, Variants } from "framer-motion";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
-import { DEFAULT_IMAGE, makeImagePath } from "../../utils";
+import { makeImagePath } from "../../utils";
 import {
   Button,
   ButtonGroup,
@@ -13,6 +13,7 @@ import {
   Title,
   Wrapper,
 } from "./Box.styled";
+import defaultImage from "../../images/defaultImage.png";
 
 const boxVariants: Variants = {
   initial: {
@@ -105,7 +106,7 @@ function Box({ data, index, sliderName, slider_col }: IBoxProps) {
                     : data!.poster_path!,
                   "w500"
                 )
-              : DEFAULT_IMAGE
+              : defaultImage
           }
         ></Poster>
         <Info
