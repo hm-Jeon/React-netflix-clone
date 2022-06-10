@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import {
@@ -38,34 +39,39 @@ function Search() {
   const isLoading = searchMovieLoading || searchTvLoading;
 
   return (
-    <Wrapper>
-      {isLoading ? (
-        <Loader>Loading</Loader>
-      ) : (
-        <>
-          <Sliders>
-            {searchMovieData!.results.length > 0 && (
-              <Slider
-                sliderName="movie"
-                movieData={searchMovieData!}
-                cutOutRemainder={false}
-                slider_col={6}
-                slice_first={false}
-              />
-            )}
-            {searchTvData!.results.length > 0 && (
-              <Slider
-                sliderName="tv"
-                tvData={searchTvData!}
-                cutOutRemainder={false}
-                slider_col={6}
-                slice_first={false}
-              />
-            )}
-          </Sliders>
-        </>
-      )}
-    </Wrapper>
+    <>
+      <Helmet>
+        <title>{query} 검색 - 넷플릭스</title>
+      </Helmet>
+      <Wrapper>
+        {isLoading ? (
+          <Loader>Loading</Loader>
+        ) : (
+          <>
+            <Sliders>
+              {searchMovieData!.results.length > 0 && (
+                <Slider
+                  sliderName="movie"
+                  movieData={searchMovieData!}
+                  cutOutRemainder={false}
+                  slider_col={6}
+                  slice_first={false}
+                />
+              )}
+              {searchTvData!.results.length > 0 && (
+                <Slider
+                  sliderName="tv"
+                  tvData={searchTvData!}
+                  cutOutRemainder={false}
+                  slider_col={6}
+                  slice_first={false}
+                />
+              )}
+            </Sliders>
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 }
 
