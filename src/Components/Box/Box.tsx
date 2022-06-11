@@ -1,5 +1,5 @@
 import { AnimatePresence, Variants } from "framer-motion";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IMovie, ITv } from "../../api";
 import { DEFAULT_BACKDROP_PATH, makeImagePath } from "../../utils";
@@ -140,4 +140,4 @@ function Box({ data, index, sliderName, slider_col }: IBoxProps) {
   );
 }
 
-export default Box;
+export default memo(Box);

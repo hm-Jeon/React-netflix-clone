@@ -1,5 +1,5 @@
 import { AnimatePresence, Variants } from "framer-motion";
-import { useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { IMovie, ITv } from "../../api";
 import Box from "../Box/Box";
 import {
@@ -46,16 +46,32 @@ const rowVariants: Variants = {
 function Slider({
   data,
   sliderName,
-  slider_col = 6,
   cutOutRemainder = true,
   slice_first = true,
 }: ISliderProps) {
   const [index, setIndex] = useState(0);
   const [isBack, setIsBack] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
-  const offset = slider_col;
+
+  const changeOffset = () => {
+    const width = window.innerWidth;
+    if (width < 700) return 2;
+    else if (width < 900) return 3;
+    else if (width < 1100) return 4;
+    else if (width < 1400) return 5;
+    else return 6;
+  };
+
+  const [offset, setOffset] = useState(() => changeOffset());
   const total = data!.length! - 1;
   const maxIndex = Math.floor(total / offset) - (cutOutRemainder ? 1 : 0);
+
+  if (maxIndex < index) setIndex(maxIndex);
+
+  useEffect(() => {
+    setOffset(changeOffset());
+    window.addEventListener("resize", () => setOffset(changeOffset));
+  }, []);
 
   const increaseIndex = () => {
     if (isLeaving) return;
@@ -130,7 +146,7 @@ function Slider({
                     data={movie as IMovie & ITv}
                     sliderName={sliderName}
                     index={i}
-                    slider_col={slider_col}
+                    slider_col={offset}
                   />
                 ))}
           </Row>
@@ -140,4 +156,4 @@ function Slider({
   );
 }
 
-export default Slider;
+export default memo(Slider);
