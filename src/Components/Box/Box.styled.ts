@@ -6,7 +6,7 @@ export const Wrapper = styled(motion.div)`
   flex-direction: column;
   height: fit-content;
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   overflow: hidden;
 `;
