@@ -42,7 +42,7 @@ const inputVariant: Variants = {
 
 const svgVariant: Variants = {
   animate: (custom: boolean) => ({
-    x: custom ? -195 : 0,
+    x: custom ? -200 : 0,
     transition: {
       type: "linear",
       duration: 0.2,

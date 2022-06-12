@@ -84,19 +84,24 @@ export const Svg = styled(motion.svg)`
   height: 20px;
   cursor: pointer;
   z-index: 1;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 export const Input = styled(motion.input)`
   position: absolute;
   right: 0;
   width: 180px;
-  padding: 10px 10px 10px 30px;
+  padding: 10px 10px 10px 40px;
   color: inherit;
   background-color: transparent;
   border: none;
   outline: none;
   font-family: inherit;
-  font-size: 1em;
+  font-size: 18px;
   // transform-origin: transform이 시작되는 위치를 지정 right로 지정하면 오른쪽으로부터 transform이 시작된다.
   transform-origin: right center;
   box-sizing: content-box;
